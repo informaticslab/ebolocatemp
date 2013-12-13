@@ -21,7 +21,7 @@ db.open(function(err, db) {
  
 exports.findById = function(req, res) {
     var id = req.params.id;
-    console.log('Retrieving wine: ' + id);
+    console.log('Retrieving article: ' + id);
     db.collection('articles', function(err, collection) {
         collection.findOne({'_id':new BSON.ObjectID(id)}, function(err, item) {
             res.send(item);
