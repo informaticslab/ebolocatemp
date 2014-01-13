@@ -5,13 +5,14 @@ var express = require('express')
   , LocalStrategy = require('passport-local').Strategy
 , BearerStrategy = require('passport-http-bearer').Strategy;
     article = require('./routes/articles');
+users = require('./routes/users');
  
 var app = express();
 
-var users = [
-    { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com', token: '123456789' }
-  , { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com', token: '987654321' }
-];
+//var users = [
+ //   { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com', token: '123456789' }
+//  , { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com', token: '987654321' }
+//];
 
 function findById(id, fn) {
   var idx = id - 1;
