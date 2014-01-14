@@ -1,4 +1,4 @@
-var express = require('express')
+ var express = require('express')
      , passport = require('passport')
   , flash = require('connect-flash')
   , util = require('util')
@@ -6,9 +6,16 @@ var express = require('express')
 , BearerStrategy = require('passport-http-bearer').Strategy;
     article = require('./routes/articles');
 users = require('./routes/users');
+var mongo = require('mongodb');
+ 
+var Server = mongo.Server,
+    Db = mongo.Db,
+    BSON = mongo.BSONPure;
  
 var app = express();
 
+var server = new Server('localhost', 27017, {auto_reconnect: true});
+db = new Db('userdb', server);
 //var users = [
  //   { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com', token: '123456789' }
 //  , { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com', token: '987654321' }
