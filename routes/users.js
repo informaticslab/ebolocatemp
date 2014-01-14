@@ -88,28 +88,15 @@ var populateDB = function() {
  
     function generatePassHash(password) {
     
-        var salt = bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) 
-                   {
-		if(err) 
-        {
-             console.error(err);
-             return err;     
-        }
-    });
+        var salt = bcrypt.genSaltSync(SALT_WORK_FACTOR)
+                  
         console.log("The salt given was " + salt);
-		bcrypt.hash(password, salt, function(err, hash) {
-            console.log("The password given was " + password);
-
-			if(err) 
-            {
-                console.error(err);
-                return err;
-            }
+        
+        var hash = bcrypt.hashSync(password, salt);
+		
             console.log("The Hash being returned is " + hash);
             
 			return hash;
-		});
-        // return hash;
 	};
 
     var passHash = generatePassHash('secret');
@@ -118,9 +105,9 @@ var populateDB = function() {
     { id: 1, username: 'bob', password: generatePassHash('secret'), email: 'bob@example.com', token: '123456789' }
   , { id: 2, username: 'joe', password: generatePassHash('birthday'), email: 'joe@example.com', token: '987654321' }
     ];
-    //db.collection('users', function(err, collection) {
-   //     collection.insert(users, {safe:true}, function(err, result) {});
-   // });
+//    db.collection('users', function(err, collection) {
+//        collection.insert(users, {safe:true}, function(err, result) {});
+//    });
  
 };
 // Password verification
