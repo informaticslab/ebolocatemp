@@ -109,7 +109,7 @@ var populateDB = function() {
     ];
  
     db.collection('articles', function(err, collection) {
-        collection.insert(articles, {safe:true}, function(err, result) {});
+        collection.insert(articles, function(err, result) {});
     });
  
 };

@@ -15,41 +15,58 @@ var Server = mongo.Server,
 var app = express();
 
 var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('userdb', server);
+var userdb = new Db('userdb', server);
 //var users = [
  //   { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com', token: '123456789' }
 //  , { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com', token: '987654321' }
 //];
 
 function findById(id, fn) {
-  var idx = id - 1;
-  if (users[idx]) {
-    fn(null, users[idx]);
-  } else {
-    fn(new Error('User ' + id + ' does not exist'));
-  }
+  //var idx = id - 1;
+  //if (userdb[idx]) {
+  //  fn(null, users[idx]);
+  //} else {
+   // fn(new Error('User ' + id + ' does not exist'));
+  //}
+   userdb.findById(id, function(err,user){
+                if(err) done(err);
+                done(null,user);
+            });
 }
 
 function findByUsername(username, fn) {
-  for (var i = 0, len = users.length; i < len; i++) {
-    var user = users[i];
-    if (user.username === username) {
-      return fn(null, user);
-    }
-  }
-  return fn(null, null);
-}
+//  for (var i = 0, len = users.length; i < len; i++) {
+//    var user = users[i];
+//    if (user.username === username) {
+//      return fn(null, user);
+//    }
+//  }
+//  return fn(null, null);
+userdb.findOne({ username : username},function(err,user){
+        if(err) { return done(err); }
+        if(!user){
+            return done(null, false, { message: 'Incorrect username.' });
+        }
+        return user;
+});
+};
 
 function findByToken(token, fn) {
-  for (var i = 0, len = users.length; i < len; i++) {
-    var user = users[i];
-    if (user.token === token) {
-      return fn(null, user);
-    }
-  }
-  return fn(null, null);
-}
-
+//  for (var i = 0, len = users.length; i < len; i++) {
+//    var user = users[i];
+//    if (user.token === token) {
+//      return fn(null, user);
+//    }
+//  }
+//  return fn(null, null);
+userdb.findOne({ token : token},function(err,user){
+        if(err) { return done(err); }
+        if(!user){
+            return done(null, false, { message: 'Nonexistant token.' });
+        }
+        return user;
+})
+};
 
 // Use the BearerStrategy within Passport.
 //   Strategies in Passport require a `validate` function, which accept
@@ -108,8 +125,10 @@ passport.use(new LocalStrategy(
       findByUsername(username, function(err, user) {
         if (err) { return done(err); }
         if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
-        if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
+        if (user.password !== password) { return done(null, false, { message: 'Invalid password' }); }
         return done(null, user);
+      
+      
       })
     });
   }
@@ -197,7 +216,7 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
- 
+
 app.listen(8081);
 console.log('Listening on port 8081...');
 
@@ -208,5 +227,5 @@ console.log('Listening on port 8081...');
 //   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
-}
+  res.redirect('/login');
+};
