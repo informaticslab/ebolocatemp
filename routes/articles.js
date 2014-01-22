@@ -1,23 +1,27 @@
 var mongo = require('mongodb');
+var monk = require('monk');
  
-var Server = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
+ var gendb = monk('localhost:27017/photon-admin-server');
+var db = gendb.get('articledb');
  
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('articledb', server);
+//var Server = mongo.Server,
+//    Db = mongo.Db,
+//    BSON = mongo.BSONPure;
+// 
+//var server = new Server('localhost', 27017, {auto_reconnect: true});
+//db = new Db('articledb', server);
  
-db.open(function(err, db) {
-    if(!err) {
-        console.log("Connected to 'articledb' database");
-        db.collection('articles', {strict:true}, function(err, collection) {
-            if (err) {
-                console.log("The 'articles' collection doesn't exist. Creating it with sample data...");
-                populateDB();
-            }
-        });
-    }
-});
+//db.open(function(err, db) {
+//    if(!err) {
+//        console.log("Connected to 'articledb' database");
+//        db.collection('articles', {strict:true}, function(err, collection) {
+//            if (err) {
+//                console.log("The 'articles' collection doesn't exist. Creating it with sample data...");
+//                populateDB();
+//            }
+//        });
+//    }
+//});
  
 exports.findById = function(req, res) {
     var id = req.params.id;

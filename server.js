@@ -7,15 +7,17 @@
     article = require('./routes/articles');
 users = require('./routes/users');
 var mongo = require('mongodb');
+var monk = require('monk');
  
-var Server = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
+//var Server = mongo.Server,
+//    Db = mongo.Db,
+//    BSON = mongo.BSONPure;
  
 var app = express();
-
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-var userdb = new Db('userdb', server);
+var db = monk('localhost:27017/userdb');
+var userdb = db.get('users');
+//var server = new Server('localhost', 27017, {auto_reconnect: true});
+//var userdb = new Db('userdb', server);
 //var users = [
  //   { id: 1, username: 'bob', password: 'secret', email: 'bob@example.com', token: '123456789' }
 //  , { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com', token: '987654321' }
@@ -42,11 +44,14 @@ function findByUsername(username, fn) {
 //    }
 //  }
 //  return fn(null, null);
-userdb.findOne({ username : username},function(err,user){
-        if(err) { return done(err); }
-        if(!user){
-            return done(null, false, { message: 'Incorrect username.' });
-        }
+userdb.findOne({ username : username},function(err,user, done){
+   console.log('found user: ' + username + ", the user id is " + user.id);
+       
+//        if(err) { return done(err); }
+//        if(!user){
+//            console.log('apparently there was no user' + user);
+//            return done({ message: 'Incorrect username.' });
+//        }
         return user;
 });
 };
@@ -59,7 +64,8 @@ function findByToken(token, fn) {
 //    }
 //  }
 //  return fn(null, null);
-userdb.findOne({ token : token},function(err,user){
+userdb.findOne({ token : token},function(err,user, done){
+    console.log("token was " + token)
         if(err) { return done(err); }
         if(!user){
             return done(null, false, { message: 'Nonexistant token.' });

@@ -1,32 +1,35 @@
   var mongo = require('mongodb')
   , bcrypt = require('bcrypt')
   , SALT_WORK_FACTOR = 10;
+  var monk = require('monk');
   
+   var gendb = monk('localhost:27017/photon-admin-server');
+var db = gendb.get('userdb');
 
-var Server = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
+//var Server = mongo.Server,
+//    Db = mongo.Db,
+//    BSON = mongo.BSONPure;
+// 
+//var server = new Server('localhost', 27017, {auto_reconnect: true});
+//db = new Db('userdb', server);
  
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('userdb', server);
- 
-db.open(function(err, db) {
-    if(!err) {
-        console.log("Connected to 'userdb' database");
-        db.collection('users', {strict:true}, function(err, collection) {
-            if (err) {
-                console.log("The 'users' collection doesn't exist. Creating it with sample data..." + err);
-                var users = [
-            { id: 1, username: 'bob', password: generatePassHash('secret'), email: 'bob@example.com', token: '123456789' }
-            , { id: 2, username: 'joe', password: generatePassHash('birthday'), email: 'joe@example.com', token: '987654321' }
-            ];
-            db.collection('users', function(err, collection) {
-                collection.insert(users, {safe:true}, function(err, result) {});
-            });
-            }
-        });
-    }
-});
+//db.open(function(err, db) {
+//    if(!err) {
+//        console.log("Connected to 'userdb' database");
+//        db.collection('users', {strict:true}, function(err, collection) {
+//            if (err) {
+//                console.log("The 'users' collection doesn't exist. Creating it with sample data..." + err);
+//                var users = [
+//            { id: 1, username: 'bob', password: generatePassHash('secret'), email: 'bob@example.com', token: '123456789' }
+//            , { id: 2, username: 'joe', password: generatePassHash('birthday'), email: 'joe@example.com', token: '987654321' }
+//            ];
+//            db.collection('users', function(err, collection) {
+//                collection.insert(users, {safe:true}, function(err, result) {});
+//            });
+//            }
+//        });
+//    }
+//});
 
 var populateDB = function() {
 
