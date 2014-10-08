@@ -56,6 +56,10 @@ app.get('/confirmation', function(req, res){
   res.render('confirmation');
 });
 
+app.get('/error', function(req, res){
+  res.render('error');
+});
+
 app.post('/record', function(req, res){
   console.log('record posted...')
     console.log(req.body);
