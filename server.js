@@ -225,8 +225,8 @@ app.post('/login', function(req, res, next) {
 // });
 
 
-app.listen(8081);
-console.log('Listening on port 8081...');
+app.listen(8092);
+console.log('Listening on port 8092...');
 
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If
