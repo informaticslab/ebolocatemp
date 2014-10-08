@@ -4,7 +4,7 @@
   , util = require('util')
   , LocalStrategy = require('passport-local').Strategy
 , BearerStrategy = require('passport-http-bearer').Strategy;
-    article = require('./routes/articles');
+    record = require('./routes/record');
 users = require('./routes/users');
 var mongo = require('mongodb');
 var monk = require('monk');
@@ -159,22 +159,22 @@ app.configure(function () {
   app.use(express.static(__dirname + '/../../public'));
 });
  
-app.get('/articles',
-        article.findAll);
-app.get('/articles/:id', article.findById);
-app.post('/articles', article.addArticle);
-app.put('/articles/:id', article.updateArticle);
-app.delete('/articles/:id', article.deleteArticle);
+app.get('/ebolocatemp/api/record',
+        record.findAll);
+app.get('/ebolocatemp/api/record/:id', record.findById);
+app.post('/ebolocatemp/api/record', record.addRecord);
+//app.put('/record/:id', record.updateArticle);
+//app.delete('/record/:id', record.deleteArticle);
 
-app.get('/', function(req, res){
+app.get('/ebolocatemp/', function(req, res){
   res.render('index', { user: req.user });
 });
 
-app.get('/account', ensureAuthenticated, function(req, res){
+app.get('/ebolocatemp/account', ensureAuthenticated, function(req, res){
   res.render('account', { user: req.user });
 });
 
-app.get('/login', function(req, res){
+app.get('/ebolocatemp/login', function(req, res){
   res.render('login', { user: req.user, message: req.flash('error') });
 });
 
@@ -185,13 +185,13 @@ app.get('/login', function(req, res){
 //   which, in this example, will redirect the user to the home page.
 //
 //   curl -v -d "username=bob&password=secret" http://127.0.0.1:3000/login
-app.post('/login', 
+app.post('/ebolocatemp/login', 
   passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
   function(req, res) {
     res.redirect('/');
   });
 
-app.get('/foo',
+app.get('/ebolocatemp/foo',
   // Authenticate using HTTP Bearer credentials, with session support disabled.
   passport.authenticate('bearer', { session: false }),
   function(req, res){
@@ -217,9 +217,9 @@ app.post('/login', function(req, res, next) {
 });
 */
 
-app.get('/logout', function(req, res){
+app.get('/ebolocatemp/logout', function(req, res){
   req.logout();
-  res.redirect('/');
+  res.redirect('/ebolocatemp/');
 });
 
 
@@ -233,5 +233,5 @@ console.log('Listening on port 8081...');
 //   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login');
+  res.redirect('/ebolocatemp/login');
 };
