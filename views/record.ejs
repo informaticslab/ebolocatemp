@@ -1,10 +1,7 @@
 
-<html>
-<body>
+<% layout('layout') -%>
+<h1>New Temperature Collection Form</h1>
 <section class="panel">
-      <header class="panel-heading">
-          New Temperature Record
-      </header>
       <div class="panel-body">
           <form class="form-horizontal" role="form" method="POST">
               <div class="form-group">
@@ -12,6 +9,13 @@
                   <div class="col-lg-10">
                       <input type="text" class="form-control" id="temp" name="temp" placeholder="98.6">
                       <p>Please enter your current body temperature in degrees Fahrenheit</p>
+                  </div>
+              </div>
+               <div class="form-group">
+                  <label for="loc" class="col-lg-2 col-sm-2 control-label">Location</label>
+                  <div class="col-lg-10">
+                      <input type="text" class="form-control" id="loc" name="loc" placeholder="LAX">
+                      <p>Please enter your current location using an airport code, zip code, or city/state</p>
                   </div>
               </div>
               <div class="form-group">
@@ -23,5 +27,3 @@
           </form>
       </div>
   </section>
-  </body>
-</html>
