@@ -4,6 +4,7 @@
   , util = require('util')
 //   , LocalStrategy = require('passport-local').Strategy
 // , BearerStrategy = require('passport-http-bearer').Strategy;
+
     record = require('./routes/record');
 users = require('./routes/users');
 var mongo = require('mongodb');
