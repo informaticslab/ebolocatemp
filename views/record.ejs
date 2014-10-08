@@ -8,13 +8,6 @@
       <div class="panel-body">
           <form class="form-horizontal" role="form" method="POST">
               <div class="form-group">
-                  <label for="cdcId" class="col-lg-2 col-sm-2 control-label">CDC ID</label>
-                  <div class="col-lg-10">
-                      <input type="text" class="form-control" id="cdcId" name="cdcId" disabled=disabled value="<%= cdcId %>">
-                      <p>This anonymous identifyer has been randomly assigned to you</p>
-                  </div>
-              </div>
-              <div class="form-group">
                   <label for="temp" class="col-lg-2 col-sm-2 control-label">Temperature</label>
                   <div class="col-lg-10">
                       <input type="text" class="form-control" id="temp" name="temp" placeholder="98.6">
@@ -23,7 +16,8 @@
               </div>
               <div class="form-group">
                   <div class="col-lg-offset-2 col-lg-10">
-                      <button type="submit" class="btn btn-success">Submit</button>
+                  		<input type="hidden" class="form-control" id="cdcId" name="cdcId" value="<%= cdcId %>">
+                  		<button type="submit" class="btn btn-success">Submit</button>
                   </div>
               </div>
           </form>
