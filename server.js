@@ -20,7 +20,25 @@ app.configure(function () {
 });
  
 app.get('/ebolocatemp/api/record', record.findAll);
-app.get('/ebolocatemp/api/record/:id', record.findById);
+
+app.get('/ebolocatemp/api/record/:id', function(req, res){
+  if(req.params.id){
+    var existing = record.findById(req.params.id, function(result){
+        if(result.success){
+          res.json(result.data);
+          return;
+        }else{
+          res.send(404, 'resource not found');
+          return;
+        }
+    });
+  }
+  else{
+    res.send(404, 'resource not found');
+    return;
+  }
+});
+
 app.post('/ebolocatemp/api/record', function(req, res){
   var bod = req.body;
   console.log(bod);
@@ -65,10 +83,26 @@ app.get('/ebolocatemp/record', function(req, res){
   });
 });
 
-app.get('/ebolocatemp/confirmation', function(req, res){
-  res.render('confirmation', {
-    title: 'Temperature Collection Confirmation'
-  });
+app.get('/ebolocatemp/confirmation/:id', function(req, res){
+
+  if(req.params.id){
+    var existing = record.findById(req.params.id, function(result){
+        if(result.success){
+          res.render('confirmation', {
+            title: 'Temperature Collection Confirmation'
+          });
+        }else{
+          res.send(404, 'resource not found');
+          return;
+        }
+    });
+  }
+  else{
+    res.render('confirmation', {
+      title: 'Temperature Collection Confirmation'
+    });
+  }
+  
 });
 
 app.get('/ebolocatemp/error', function(req, res){
@@ -97,7 +131,8 @@ app.post('/ebolocatemp/record', function(req, res){
   // save to db
   record.addRecord(toSave, function(result){
     if(result.success){
-      res.redirect('/ebolocatemp/confirmation');
+      console.log(result.data);
+      res.redirect('/ebolocatemp/confirmation/' + result.data._id);
     } else  {
       res.redirect('/ebolocatemp/error');      
     }
