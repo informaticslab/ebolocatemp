@@ -224,6 +224,22 @@ app.post('/login', function(req, res, next) {
 //   res.redirect('/ebolocatemp/');
 // });
 
+app.get('/record', function(req, res){
+  res.render('record', { 
+    cdcId: req.query.cdcId
+  });
+});
+
+app.get('/confirmation', function(req, res){
+  res.render('confirmation');
+});
+
+app.post('/record', function(req, res){
+  console.log('record posted...')
+    console.log(req.body);
+    res.redirect('/confirmation');
+});
+
 
 app.listen(8092);
 console.log('Listening on port 8092...');
