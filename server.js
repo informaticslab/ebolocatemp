@@ -47,8 +47,7 @@ app.get('/error', function(req, res){
 });
 
 app.post('/record', function(req, res){
-
-  var bod = req.body;
+    var bod = req.body;
   
   // validate posted data
   if(!bod.cdcId && !req.query.cdcId)
@@ -64,9 +63,11 @@ app.post('/record', function(req, res){
     timestamp: new Date().getTime()
   };
 
-  console.log('saving' + JSON.stringify(toSave));
+ // save to db
+ record.addRecord(toSave, function(){
+    res.redirect('/confirmation');
+ });
 
-  res.redirect('/confirmation');
 });
 
 
