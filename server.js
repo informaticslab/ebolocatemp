@@ -27,34 +27,34 @@ app.get('/ebolocatemp/', function(req, res){
   res.render('index');
 });
 
-app.get('/record', function(req, res){
+app.get('/ebolocatemp/record', function(req, res){
   res.render('record', { 
     title: 'Temperature Collection Form',
     cdcId: req.query.cdcId
   });
 });
 
-app.get('/confirmation', function(req, res){
+app.get('/ebolocatemp/confirmation', function(req, res){
   res.render('confirmation', {
     title: 'Temperature Collection Confirmation'
   });
 });
 
-app.get('/error', function(req, res){
+app.get('/ebolocatemp/error', function(req, res){
   res.render('error', {
     title: 'Temperature Collection Error'
   });
 });
 
-app.post('/record', function(req, res){
+app.post('/ebolocatemp/record', function(req, res){
     var bod = req.body;
   
   // validate posted data
   if(!bod.cdcId && !req.query.cdcId)
-    res.redirect('/error');
+    res.redirect('/ebolocatemp/error');
 
   if(!bod.temp)
-    res.redirect('/record?cdcId=' + bod.cdcId);
+    res.redirect('/ebolocatemp/record?cdcId=' + bod.cdcId);
 
   var toSave = {
     cdcId: bod.cdcId,
@@ -63,11 +63,14 @@ app.post('/record', function(req, res){
     timestamp: new Date().getTime()
   };
 
- // save to db
- record.addRecord(toSave, function(){
-    res.redirect('/confirmation');
- });
-
+  // save to db
+  record.addRecord(toSave, function(result){
+    if(result.success){
+      res.redirect('/ebolocatemp/confirmation');
+    } else  {
+      res.redirect('/ebolocatemp/error');      
+    }
+  });
 });
 
 

@@ -67,17 +67,21 @@ exports.addRecord= function(record, callback) {
             if (err) {
                 console.log('error detected');
                 console.log(err);
-                return err;
+                callback({
+                    success: 0,
+                    data: err
+                });
             } else {
                 console.log('Success: ' + JSON.stringify(result[0]));
-                res.send(result[0]);
+                callback({
+                    success: 1,
+                    data: result[0]
+                });
             }
         });
     });
 
     console.log('end of task');
-
-    callback();
 };
  
 // exports.updateArticle = function(req, res) {
