@@ -53,6 +53,37 @@ exports.findById = function(id, callback) {
         }
     });
 };
+
+exports.findAllByCdcId = function(id, callback) {
+    console.log('Retrieving temprecord with CdcId: ' + id);
+    db.collection('temprecords', function(err, collection) {
+        if(err){
+            callback({
+                success: 0,
+                data: err
+            });
+            return;
+        }
+        else{
+            collection.findAll({'cdcId':new BSON.ObjectID(id)}, function(err, item) {
+                if(err){
+                    callback({
+                        success: 0,
+                        data: err
+                    });
+                    return;
+                }
+                else{
+                    callback({
+                        success: 1,
+                        data: item
+                    });
+                    return;
+                }
+            });
+        }
+    });
+};
  
 exports.findAll = function(req, res) {
     db.collection('temprecords', function(err, collection) {
