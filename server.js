@@ -61,9 +61,22 @@ app.get('/error', function(req, res){
 });
 
 app.post('/record', function(req, res){
-  console.log('record posted...')
-    console.log(req.body);
-    res.redirect('/confirmation');
+  console.log('record posted...');
+  var bod = req.body;
+  
+  // validate posted data
+  if(!bod.cdcId && !req.query.cdcId)
+    res.redirect('/error');
+
+  if(!bod.temp)
+    res.redirect('/record?cdcId=' + bod.cdcId);
+
+  var toSave = {
+    cdcId: bod.cdcId,
+    temp: bod.temp,
+  };
+
+  res.redirect('/confirmation');
 });
 
 
