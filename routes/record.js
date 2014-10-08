@@ -23,13 +23,34 @@ db.open(function(err, db) {
    }
 });
  
-exports.findById = function(req, res) {
-    var id = req.params.id;
+exports.findById = function(id, callback) {
     console.log('Retrieving temprecord with id: ' + id);
     db.collection('temprecords', function(err, collection) {
-        collection.findOne({'_id':new BSON.ObjectID(id)}, function(err, item) {
-            res.send(item);
-        });
+        if(err){
+            callback({
+                success: 0,
+                data: err
+            });
+            return;
+        }
+        else{
+            collection.findOne({'_id':new BSON.ObjectID(id)}, function(err, item) {
+                if(err){
+                    callback({
+                        success: 0,
+                        data: err
+                    });
+                    return;
+                }
+                else{
+                    callback({
+                        success: 1,
+                        data: item
+                    });
+                    return;
+                }
+            });
+        }
     });
 };
  
