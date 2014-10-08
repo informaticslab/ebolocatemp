@@ -41,20 +41,44 @@ exports.findAll = function(req, res) {
     });
 };
  
-exports.addRecord= function(req, res) {
-    var record = req.body;
-    console.log('Adding record: ' + JSON.stringify(record));
+exports.addRecord= function(record, callback) {
+      // validate posted data
+    if(!record.cdcId)
+    {
+        // handle invalid cdcId
+    }
+
+    if(!record.temp)
+    {
+        // handle invalid temp
+    }
+
+    var toSave = {
+    cdcId: record.cdcId,
+    temp: record.temp,
+    loc: record.loc,
+    timestamp: new Date().getTime()
+    };
+
+    console.log('Saving record: ' + JSON.stringify(record));
+
     db.collection('temprecords', function(err, collection) {
         collection.insert(record, {safe:true}, function(err, result) {
             if (err) {
-                res.send({'error':'An error has occurred'});
+                console.log('error detected');
+                console.log(err);
+                return err;
             } else {
                 console.log('Success: ' + JSON.stringify(result[0]));
                 res.send(result[0]);
             }
         });
     });
-}
+
+    console.log('end of task');
+
+    callback();
+};
  
 // exports.updateArticle = function(req, res) {
 //     var id = req.params.id;
