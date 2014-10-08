@@ -6,7 +6,7 @@
 // , BearerStrategy = require('passport-http-bearer').Strategy;
 
     record = require('./routes/record');
-users = require('./routes/users');
+//users = require('./routes/users');
 var mongo = require('mongodb');
 var monk = require('monk');
  
