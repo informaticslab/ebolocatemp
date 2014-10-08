@@ -5,7 +5,7 @@ Testing project.
 
 ## Notes
 
-Currently only works on *nix environments (Linux/Unix/OS-X).  Dependency on BCrypt is causing issues on Windows.
+* Depends on MongoDB being installed and running on your system.
 
 ## Contributing
 Anyone is encouraged to contribute to the project by [forking](https://help.github.com/articles/fork-a-repo) and submitting a pull request. (If you are new to GitHub, you might start with a [basic tutorial](https://help.github.com/articles/set-up-git).) 
@@ -13,6 +13,11 @@ Anyone is encouraged to contribute to the project by [forking](https://help.gith
 By contributing to this project, you grant a world-wide, royalty-free, perpetual, irrevocable, non-exclusive, transferable license to all users under the terms of the [Apache Software License v2](http://www.apache.org/licenses/LICENSE-2.0.html) or later.
 
 All comments, messages, pull requests, and other submissions received through CDC and PHIResearchLab.org pages including this GitHub page are subject to the Presidential Records Act and may be archived. Learn more http://cdc.gov/privacy
+
+##Documentation
+* Ebolocatemp [Confluence](http://code.phiresearchlab.org/confluence/display/LAB/Ebolocatemp+-+24+hours+to+make+a+handy+app)
+* Server code is located in server.js.  To run, clone this project, move into the src directory, npm install, then node server.js
+* Data in MongoDB will be pre-populated with some test records during inital boot.
 
 ## License
 
