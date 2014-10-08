@@ -159,7 +159,7 @@ app.configure(function () {
   app.use(express.static(__dirname + '/../../public'));
 });
  
-app.get('/articles', passport.authenticate('bearer', { session: false }),
+app.get('/articles',
         article.findAll);
 app.get('/articles/:id', article.findById);
 app.post('/articles', article.addArticle);
