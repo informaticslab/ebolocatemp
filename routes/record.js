@@ -80,8 +80,6 @@ exports.addRecord= function(record, callback) {
             }
         });
     });
-
-    console.log('end of task');
 };
  
 // exports.updateArticle = function(req, res) {

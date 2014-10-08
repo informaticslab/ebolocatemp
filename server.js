@@ -21,7 +21,38 @@ app.configure(function () {
  
 app.get('/ebolocatemp/api/record', record.findAll);
 app.get('/ebolocatemp/api/record/:id', record.findById);
-app.post('/ebolocatemp/api/record', record.addRecord);
+app.post('/ebolocatemp/api/record', function(req, res){
+  var bod = req.body;
+  console.log(bod);
+  // validate posted data
+  if(!bod.cdcId && !req.query.cdcId){
+    res.send(400, "invalid CDC ID" + bod.cdcId);
+    return;
+  }
+
+  if(!bod.temp){
+    res.send(400, "invalid temp");
+    return;
+  }
+    
+  var toSave = {
+    cdcId: bod.cdcId,
+    temp: bod.temp,
+    loc: bod.loc,
+    timestamp: new Date().getTime()
+  };
+
+  // save to db
+  record.addRecord(toSave, function(result){
+    if(result.success){
+      res.send(200, result.data);
+      return;
+    } else  {
+      res.send(500, result.data);
+      return;
+    }
+  });
+});
 
 app.get('/ebolocatemp/', function(req, res){
   res.render('index');
@@ -47,7 +78,7 @@ app.get('/ebolocatemp/error', function(req, res){
 });
 
 app.post('/ebolocatemp/record', function(req, res){
-    var bod = req.body;
+  var bod = req.body;
   
   // validate posted data
   if(!bod.cdcId && !req.query.cdcId)
