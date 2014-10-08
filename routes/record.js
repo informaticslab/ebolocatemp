@@ -95,19 +95,19 @@ exports.addRecord= function(req, res) {
 var populateDB = function() {
     var temprecords = [
     {CDCID: "12345",
-     temp: "102.7C",
+     temp: "102.7F",
      loc: "ATL",
      timestamp: "2014-10-08T0910"},
     {CDCID: "12345",
-     temp: "98.6C",
+     temp: "98.6F",
      loc: "ATL",
      timestamp: "2014-10-07T1452"},
     {CDCID: "12345",
-     temp: "98.6C",
+     temp: "98.6F",
      loc: "ATL",
      timestamp: "2014-10-06T0830"},
     {CDCID: "12345",
-     temp: "98.6C",
+     temp: "98.6F",
      loc: "ABQ",
      timestamp: "2014-10-05T0225"}
     ]
