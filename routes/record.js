@@ -65,7 +65,7 @@ exports.findAllByCdcId = function(id, callback) {
             return;
         }
         else{
-            collection.findAll({'cdcId':new BSON.ObjectID(id)}, function(err, item) {
+            collection.find({'cdcId':id}).toArray(function(err, items) {
                 if(err){
                     callback({
                         success: 0,
@@ -76,7 +76,7 @@ exports.findAllByCdcId = function(id, callback) {
                 else{
                     callback({
                         success: 1,
-                        data: item
+                        data: items
                     });
                     return;
                 }
@@ -145,10 +145,10 @@ exports.addRecord= function(record, callback) {
         timestamp: timeToSave
     };
 
-    console.log('Saving record: ' + JSON.stringify(record));
+    console.log('Saving record: ' + JSON.stringify(toSave));
 
     db.collection('temprecords', function(err, collection) {
-        collection.insert(record, {safe:true}, function(err, result) {
+        collection.insert(toSave, {safe:true}, function(err, result) {
             if (err) {
                 console.log('error detected');
                 console.log(err);
