@@ -88,9 +88,15 @@ app.get('/ebolocatemp/', function(req, res){
   });
 });
 
+app.get('/ebolocatemp/data', function(req, res){
+  res.render('data', {
+    title: 'Temp Monitor Data'
+  });
+});
+
 app.get('/ebolocatemp/record', function(req, res){
   res.render('record', { 
-    title: 'Temp Monitor',
+    title: 'New Temp Record',
     cdcId: req.query.cdcId
   });
 });
