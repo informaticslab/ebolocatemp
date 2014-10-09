@@ -42,6 +42,24 @@ app.get('/ebolocatemp/api/record/:id', function(req, res){
   }
 });
 
+app.get('/ebolocatemp/api/record/cdcid/:id', function(req, res){
+  if(req.params.id){
+    var existing = record.findAllByCdcId(req.params.id, function(result){
+        if(result.success){
+          res.json(result.data);
+          return;
+        }else{
+          res.send(404, 'resource not found');
+          return;
+        }
+    });
+  }
+  else{
+    res.send(404, 'resource not found');
+    return;
+  }
+});
+
 app.post('/ebolocatemp/api/record', function(req, res){
   var bod = req.body;
   console.log(bod);
