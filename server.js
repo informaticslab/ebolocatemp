@@ -11,8 +11,7 @@ var rootPath = path.normalize(__dirname + '/');
 
 app.configure(function () {
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
-  app.engine('ejs', require('ejs-locals'));
+  app.set('view engine', 'jade');
   app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
   app.use(express.bodyParser());
   app.use(express.cookieParser());
@@ -130,31 +129,6 @@ app.get('/ebolocatemp/record/cdcid/:id', function(req, res){
     res.send(404, 'resource not found');
     return;
   }
-});
-
-app.get('/ebolocatemp/confirmation/:id', function(req, res){
-
-  if(req.params.id){
-    var existing = record.findById(req.params.id, function(result){
-        if(result.success){
-          res.render('confirmation', {
-            title: 'Temperature Collection Confirmation',
-            id: result.data._id,
-            temp: result.data.temp,
-            loc: result.data.loc
-          });
-        }else{
-          res.send(404, 'resource not found');
-          return;
-        }
-    });
-  }
-  else{
-    res.render('confirmation', {
-      title: 'Temperature Collection Confirmation'
-    });
-  }
-  
 });
 
 app.get('/ebolocatemp/error', function(req, res){
