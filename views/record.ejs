@@ -3,14 +3,14 @@
 <h1>New Temperature Collection Form</h1>
 <section class="panel">
       <div class="panel-body">
-          <form class="form-horizontal" role="form" method="POST">
+          <form id="tempForm" class="form-horizontal" role="form" method="POST">
               <div class="form-group">
                   <label for="cdcId" class="col-lg-2 col-sm-2 control-label">Temperature</label>
                   <div class="col-lg-10">
                       <% if(cdcId) { %>
-                      <input type="text" class="form-control" id="cdcId" name="cdcId" placeholder="your ID" value="<%= cdcId %>">
+                      <input required type="text" class="form-control" id="cdcId" name="cdcId" placeholder="your ID" value="<%= cdcId %>">
                       <% } else { %>
-                      <input type="text" class="form-control" id="cdcId" name="cdcId" placeholder="your ID">
+                      <input required type="text" class="form-control" id="cdcId" name="cdcId" placeholder="your ID">
                       <% } %>
                       <p>Please enter your provided unique ID</p>
                   </div>
@@ -18,22 +18,25 @@
               <div class="form-group">
                   <label for="temp" class="col-lg-2 col-sm-2 control-label">Temperature</label>
                   <div class="col-lg-10">
-                      <input type="text" class="form-control" id="temp" name="temp" placeholder="98.6">
+                      <input  min="95" max="110" required type="text" class="form-control" id="temp" name="temp" placeholder="98.6">
                       <p>Please enter your current body temperature in degrees Fahrenheit</p>
                   </div>
               </div>
                <div class="form-group">
                   <label for="loc" class="col-lg-2 col-sm-2 control-label">Location</label>
                   <div class="col-lg-10">
-                      <input type="text" class="form-control typeahead" id="loc" name="loc" placeholder="LAX">
+                      <input required type="text" class="form-control typeahead" id="loc" name="loc" placeholder="LAX">
                       <p>Please enter your current location using an airport code, zip code, or city/state</p>
                   </div>
               </div>
-              <div class="form-group">
-                  <div class="col-lg-offset-2 col-lg-10">                  	
-                  		<button type="submit" class="btn btn-success">Submit</button>
+              <div class="row">
+                  <div class="col-xs-6">                   
+                      <a href="/ebolocatemp" class="btn btn-default">Cancel</a>
                   </div>
-              </div>
+                  <div class="col-xs-6 text-right">    
+                      <button type="submit" class="btn btn-success">Submit</button>
+                  </div>
+                </div>  
           </form>
       </div>
   </section>
