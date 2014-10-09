@@ -4,7 +4,10 @@ var express = require('express'),
   record = require('./routes/record');
 
 var app = express();
- 
+
+var path = require('path');
+var rootPath = path.normalize(__dirname + '/');
+
 app.configure(function () {
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
@@ -16,7 +19,7 @@ app.configure(function () {
   app.use(express.session({ secret: 'keyboard cat' }));
   app.use(flash());
   app.use(app.router);
-  app.use(express.static(__dirname + '/../../public'));
+  app.use('/ebolocatemp',express.static(rootPath + '/public'));
 });
  
 app.get('/ebolocatemp/api/record', record.findAll);
