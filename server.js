@@ -62,23 +62,12 @@ app.get('/ebolocatemp/api/record/cdcid/:id', function(req, res){
 
 app.post('/ebolocatemp/api/record', function(req, res){
   var bod = req.body;
-  console.log(bod);
-  // validate posted data
-  if(!bod.cdcId && !req.query.cdcId){
-    res.send(400, "invalid CDC ID" + bod.cdcId);
-    return;
-  }
 
-  if(!bod.temp){
-    res.send(400, "invalid temp");
-    return;
-  }
-    
   var toSave = {
     cdcId: bod.cdcId,
     temp: bod.temp,
     loc: bod.loc,
-    timestamp: new Date().getTime()
+    timestamp: bod.timestamp
   };
 
   // save to db
@@ -138,18 +127,10 @@ app.get('/ebolocatemp/error', function(req, res){
 app.post('/ebolocatemp/record', function(req, res){
   var bod = req.body;
   
-  // validate posted data
-  if(!bod.cdcId && !req.query.cdcId)
-    res.redirect('/ebolocatemp/error');
-
-  if(!bod.temp)
-    res.redirect('/ebolocatemp/record?cdcId=' + bod.cdcId);
-
   var toSave = {
     cdcId: bod.cdcId,
     temp: bod.temp,
-    loc: bod.loc,
-    timestamp: new Date().getTime()
+    loc: bod.loc
   };
 
   // save to db

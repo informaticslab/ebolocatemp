@@ -94,22 +94,55 @@ exports.findAll = function(req, res) {
 };
  
 exports.addRecord= function(record, callback) {
-      // validate posted data
-    if(!record.cdcId)
-    {
-        // handle invalid cdcId
+      
+    // validate posted data
+    if(!record.cdcId){
+        callback({
+            success: 0,
+            data: 'CDC ID is required'
+        });
+        return;
     }
 
-    if(!record.temp)
+    // location is required
+      if(!record.loc){
+        callback({
+            success: 0,
+            data: 'location is required'
+        });
+        return;
+      }
+
+    var tempNum = +record.temp;
+
+    if(!tempNum)
     {
-        // handle invalid temp
+        callback({
+            success: 0,
+            data: 'temp is required'
+        });
+        return;
     }
+
+    // temp must be between 95 and 110
+    if(tempNum < 95 || tempNum > 110){
+        callback({
+            success: 0,
+            data: 'temperature must be between 95 and 110'
+        });
+        return;
+    }
+
+    var timeToSave = record.timestamp;
+
+    if(!timeToSave)
+        timeToSave = new Date().getTime();
 
     var toSave = {
-    cdcId: record.cdcId,
-    temp: record.temp,
-    loc: record.loc,
-    timestamp: new Date().getTime()
+        cdcId: record.cdcId,
+        temp: tempNum,
+        loc: record.loc,
+        timestamp: timeToSave
     };
 
     console.log('Saving record: ' + JSON.stringify(record));
