@@ -1,3 +1,7 @@
+.error{
+  color:#CC0000;
+}
+
 .twitter-typeahead{
 	display: block !important;
 }
