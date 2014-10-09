@@ -95,6 +95,40 @@ app.get('/ebolocatemp/record', function(req, res){
   });
 });
 
+app.get('/ebolocatemp/record/cdcid/:id', function(req, res){
+  if(req.params.id){
+    var existing = record.findAllByCdcId(req.params.id, function(result){
+      console.log(result);
+      if(result.success){
+
+        var days = 0;
+
+        var lastRecord = _.max(result.data, function(record){ return record.timestamp; });
+        var firstRecord = _.min(result.data, function(record){ return record.timestamp; });
+
+        var diff = lastRecord.getTime() - firstRecord.getTime();
+
+        days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+        res.render('cdcid', { 
+          title: 'Temp Monitor by CDCID',
+          cdcId: req.params.id,
+          records: result.data,
+          dateRange: days
+        });
+        return;
+      }else{
+        res.send(404, 'resource not found');
+        return;
+      }
+    });
+  }
+  else{
+    res.send(404, 'resource not found');
+    return;
+  }
+});
+
 app.get('/ebolocatemp/confirmation/:id', function(req, res){
 
   if(req.params.id){
@@ -138,8 +172,7 @@ app.post('/ebolocatemp/record', function(req, res){
   // save to db
   record.addRecord(toSave, function(result){
     if(result.success){
-      console.log(result.data);
-      res.redirect('/ebolocatemp/confirmation/' + result.data._id);
+      res.redirect('/ebolocatemp/record/cdcid/' + result.data.cdcId);
     } else  {
       res.redirect('/ebolocatemp/error');      
     }
