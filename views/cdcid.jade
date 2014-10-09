@@ -1,0 +1,18 @@
+extends ./layout.jade
+block body
+	div.row
+		div.col-lg-12
+			h1= cdcId
+			p Total records: #{records.length}
+			p Recorded date range: #{dateRange}
+			table.table.table-responsive.table-condensed
+				each record in records
+					tr
+						td= new Date(record.timestamp).toUTCString()
+						td= record.loc
+						td= record.temp
+	div.row
+		div.col-xs-6
+			a.btn.btn-default(href="/ebolocatemp") Home
+		div.col-xs-6.text-right
+			a.btn.btn-info(href="/ebolocatemp/record") Add another record

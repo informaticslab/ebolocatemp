@@ -6,8 +6,7 @@
     "dependencies": {
         "express": "3.x",
         "connect-flash": "0.1.x",
-        "ejs": ">= 0.0.0",
-        "ejs-locals": ">= 0.0.0",
+        "jade": "*",
         "monk": "*",
         "mongodb": ">= 0.0.0",
         "underscore": "*"

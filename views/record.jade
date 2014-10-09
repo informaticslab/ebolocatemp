@@ -1,0 +1,61 @@
+extends ./layout.jade
+
+block body
+	h1 New Temperature Collection Form
+	section.panel
+		div.panel-body
+			form.form-horizontal(id="tempForm", role="form", method="POST")
+				div.form-group
+					label.col-lg-2.col-sm-2.control-label(for="cdcId") CDC ID
+					div.col-lg-10
+						if(cdcId)
+							input.form-control(required, type="text", id="cdcId", name="cdcId", placeholder="your ID", value=cdcId)
+						else
+							input.form-control(required, type="text", id="cdcId", name="cdcId", placeholder="your ID")
+						p.text-muted Please enter your provided unique ID
+				div.form-group
+					label.col-lg-2.col-sm-2.control-label(for="temp") Temperature
+					div.col-lg-10
+						input.form-control(required, min="95", max="110", type="text", id="temp", name="temp", placeholder="98.6")
+						p Please enter your current body temperature in degrees Fahrenheit
+				div.form-group
+					label.col-lg-2.col-sm-2.control-label(for="loc") Location
+					div.col-lg-10
+						input.typeahead.form-control(required, type="text", id="loc", name="loc", placeholder="LAX")
+						p Please search for your current location or nearest airport
+					div.row
+					div.col-xs-6
+						a.btn.btn-default(href="/ebolocatemp") Cancel
+					div.col-xs-6.text-right
+						button.btn.btn-success(type="submit") Submit
+
+block scripts
+	script(src="/ebolocatemp/airports.js")
+	script.
+		var substringMatcher = function(strs) {
+			return function findMatches(q, cb) {
+				var matches, substrRegex;
+				matches = [];
+				substrRegex = new RegExp(q, 'i');
+				$.each(strs, function(i, str) {
+					if (substrRegex.test(str.toLowerCase()) || substrRegex.test(str.toLowerCase()) || substrRegex.test(str.toLowerCase())) {
+						matches.push({ value: str });
+					}
+				});
+				cb(matches);
+			};
+		};
+
+		$(function(){
+			$('#loc').typeahead({
+				hint: false,
+				highlight: false,
+				minLength: 1
+			},
+			{
+				name: 'airports',
+				displayKey: 'value',
+				source: substringMatcher(allAirports)
+			});
+			$("#tempForm").validate();
+		});
