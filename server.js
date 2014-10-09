@@ -107,7 +107,7 @@ app.get('/ebolocatemp/record/cdcid/:id', function(req, res){
         var lastRecord = _.max(result.data, function(record){ return record.timestamp; });
         var firstRecord = _.min(result.data, function(record){ return record.timestamp; });
 
-        var diff = lastRecord.getTime() - firstRecord.getTime();
+        var diff = new Date(lastRecord.timestamp).getTime() - new Date(firstRecord.timestamp).getTime();
 
         days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
@@ -117,7 +117,9 @@ app.get('/ebolocatemp/record/cdcid/:id', function(req, res){
           records: result.data,
           dateRange: days
         });
+
         return;
+        
       }else{
         res.send(404, 'resource not found');
         return;
