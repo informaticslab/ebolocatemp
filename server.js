@@ -1,7 +1,8 @@
 var express = require('express'), 
   flash = require('connect-flash'), 
   util = require('util'),
-  record = require('./routes/record');
+  record = require('./routes/record'),
+  _ = require('underscore');
 
 var app = express();
 
