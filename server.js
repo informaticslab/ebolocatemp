@@ -83,12 +83,14 @@ app.post('/ebolocatemp/api/record', function(req, res){
 });
 
 app.get('/ebolocatemp/', function(req, res){
-  res.render('index');
+  res.render('index', {
+    title: 'Temp Monitor'
+  });
 });
 
 app.get('/ebolocatemp/record', function(req, res){
   res.render('record', { 
-    title: 'Temperature Collection Form',
+    title: 'Temp Monitor',
     cdcId: req.query.cdcId
   });
 });
