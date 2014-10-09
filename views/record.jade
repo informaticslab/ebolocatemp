@@ -1,5 +1,7 @@
 extends ./layout.jade
-
+block head
+	link(rel="stylesheet" href="/ebolocatemp/typeahead.css")
+	
 block body
 	h1 New Temperature Collection Form
 	section.panel
@@ -30,6 +32,8 @@ block body
 						button.btn.btn-success(type="submit") Submit
 
 block scripts
+	script(src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js")
+	script(src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js")
 	script(src="/ebolocatemp/airports.js")
 	script.
 		var substringMatcher = function(strs) {
