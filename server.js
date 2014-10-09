@@ -92,7 +92,10 @@ app.get('/ebolocatemp/confirmation/:id', function(req, res){
     var existing = record.findById(req.params.id, function(result){
         if(result.success){
           res.render('confirmation', {
-            title: 'Temperature Collection Confirmation'
+            title: 'Temperature Collection Confirmation',
+            id: result.data._id,
+            temp: result.data.temp,
+            loc: result.data.loc
           });
         }else{
           res.send(404, 'resource not found');
@@ -141,7 +144,6 @@ app.post('/ebolocatemp/record', function(req, res){
     }
   });
 });
-
 
 app.listen(8092);
 console.log('Listening on port 8092...');
