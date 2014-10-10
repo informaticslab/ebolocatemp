@@ -14,16 +14,17 @@ block body
 						td= new Date(record.timestamp).toUTCString()
 						td= record.loc
 						td= record.temp
+			div.row
+				div.col-xs-6
+					a.btn.btn-default(href="/ebolocatemp") Home
+				div.col-xs-6.text-right
+					a.btn.btn-info(href="/ebolocatemp/record") Add another record
 		div.col.md-2
 			div(id="cal-heatmap")
 	div.row
 		div.col-xs-12
 			canvas(id="myChart", width="600", height="400")
-	div.row
-		div.col-xs-6
-			a.btn.btn-default(href="/ebolocatemp") Home
-		div.col-xs-6.text-right
-			a.btn.btn-info(href="/ebolocatemp/record") Add another record
+	
 block scripts
 	script(src="/ebolocatemp/Chart.min.js")
 	script(src="//d3js.org/d3.v3.min.js")
@@ -59,12 +60,7 @@ block scripts
 							y: 15
 						}
 					},					
-					legend: [97, 99, 101, 103],
-					legendColors: {
-						empty: "#ededed",
-						min: "#ededed",
-						max: "#f20013"
-					}
+					legend: [97, 99, 101, 103]
 				});
 			});
 

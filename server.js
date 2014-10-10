@@ -133,7 +133,8 @@ app.get('/ebolocatemp/api/record/plot/:id', function(req, res){
       if(result.success){
 
         var labels = _.map(result.data, function(record){
-          var date = new Date(record.timestamp)
+          var date = new Date(record.timestamp);
+          console.log('date: ' + date);
           return date.getMonth() + "/" + date.getDate();
         })
 
