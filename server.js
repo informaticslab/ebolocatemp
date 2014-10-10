@@ -179,10 +179,11 @@ app.get('/ebolocatemp/api/record/calendar/:id', function(req, res){
 
         var toRet = {};
 
-        _.each(result.data, function(record){
+         _.each(result.data, function(record){
           if(+record.timestamp){
-            var key = record.timestamp / 1000;
-            toRet[key] = +record.temp;   
+            var ts = new Date(record.timestamp);
+            var normalized = new Date(ts.getFullYear(), ts.getMonth(), ts.getDate(), 0, 0, 0, 0).getTime() / 1000;
+            toRet[normalized] = toRet[normalized] ? Math.max(toRet[normalized], record.temp) : record.temp;
           }
         });
 
