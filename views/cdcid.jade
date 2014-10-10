@@ -20,7 +20,8 @@ block body
 				div.col-xs-6.text-right
 					a.btn.btn-info(href="/ebolocatemp/record") Add another record
 		div.col.md-2
-			div(id="cal-heatmap")
+			div
+				div(id="cal-heatmap")
 	div.row
 		div.col-xs-12
 			canvas(id="myChart", width="600", height="400")
@@ -39,8 +40,6 @@ block scripts
 				var myLineChart = new Chart(ctx).Line(data, {});
 			});
 
-			
-
 			$.get('/ebolocatemp/api/record/calendar/' + "#{cdcId}", function(data){
 				console.log(data);
 				var cal = new CalHeatMap();
@@ -50,6 +49,7 @@ block scripts
 					data: data,
 					cellSize: 10,
 					range: 2,
+					itemName: ["Temp", "Temp"],
 					verticalOrientation: true,
 					domainDynamicDimension: false,
 					label: {
@@ -62,9 +62,7 @@ block scripts
 					},					
 					legend: [97, 99, 101, 103]
 				});
-			});
-
-			
+			});		
 		});
 		
 
