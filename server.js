@@ -107,20 +107,10 @@ app.get('/ebolocatemp/record/cdcid/:id', function(req, res){
       console.log(result);
       if(result.success){
 
-        var days = 0;
-
-        var lastRecord = _.max(result.data, function(record){ return record.timestamp; });
-        var firstRecord = _.min(result.data, function(record){ return record.timestamp; });
-
-        var diff = new Date(lastRecord.timestamp).getTime() - new Date(firstRecord.timestamp).getTime();
-
-        days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
         res.render('cdcid', { 
           title: 'Temp Monitor by CDCID',
           cdcId: req.params.id,
-          records: result.data,
-          dateRange: days
+          records: result.data
         });
 
         return;
