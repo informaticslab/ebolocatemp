@@ -1,8 +1,12 @@
 extends ./layout.jade
+block head
+	link(rel="stylesheet" href="/ebolocatemp/cal-heatmap.css")
 block body
 	div.row
-		div.col-lg-12
+		div.col-xs-12
 			h1= cdcId
+	div.row
+		div.col-md-10			
 			p Total records: #{records.length}
 			table.table.table-responsive.table-condensed
 				each record in records
@@ -10,8 +14,65 @@ block body
 						td= new Date(record.timestamp).toUTCString()
 						td= record.loc
 						td= record.temp
+		div.col.md-2
+			div(id="cal-heatmap")
+	div.row
+		div.col-xs-12
+			canvas(id="myChart", width="600", height="400")
 	div.row
 		div.col-xs-6
 			a.btn.btn-default(href="/ebolocatemp") Home
 		div.col-xs-6.text-right
 			a.btn.btn-info(href="/ebolocatemp/record") Add another record
+block scripts
+	script(src="/ebolocatemp/Chart.min.js")
+	script(src="//d3js.org/d3.v3.min.js")
+	script(src="/ebolocatemp/cal-heatmap.min.js")
+
+	script.
+		$(function(){
+			var ctx = document.getElementById("myChart").getContext("2d");
+
+			$.get('/ebolocatemp/api/record/plot/' + "#{cdcId}", function(data){
+				console.log(data);
+				var myLineChart = new Chart(ctx).Line(data, {});
+			});
+
+			
+
+			$.get('/ebolocatemp/api/record/calendar/' + "#{cdcId}", function(data){
+				console.log(data);
+				var cal = new CalHeatMap();
+				cal.init({
+					domain: "month",
+					subDomain: "x_day",
+					data: data,
+					cellSize: 10,
+					range: 2,
+					verticalOrientation: true,
+					domainDynamicDimension: false,
+					label: {
+						position: "right",
+						rotate: "left",
+						offset: {
+							x: 0,
+							y: 15
+						}
+					},					
+					legend: [97, 99, 101, 103],
+					legendColors: {
+						empty: "#ededed",
+						min: "#ededed",
+						max: "#f20013"
+					}
+				});
+			});
+
+			
+		});
+		
+
+
+
+		
+		

@@ -127,6 +127,84 @@ app.get('/ebolocatemp/record/cdcid/:id', function(req, res){
   }
 });
 
+app.get('/ebolocatemp/api/record/plot/:id', function(req, res){
+  if(req.params.id){
+    var existing = record.findAllByCdcId(req.params.id, function(result){
+      if(result.success){
+
+        var labels = _.map(result.data, function(record){
+          var date = new Date(record.timestamp)
+          return date.getMonth() + "/" + date.getDate();
+        })
+
+        var temps = _.map(result.data, function(record){
+            return +record.temp;
+        });
+
+        var toRet = {
+          labels: labels,
+          datasets: [
+              {
+                  label: "Temperature",
+                  fillColor: "rgba(151,187,205,0.0)",
+                  strokeColor: "rgba(151,187,205,1)",
+                  pointColor: "rgba(151,187,205,1)",
+                  pointStrokeColor: "#fff",
+                  pointHighlightFill: "#fff",
+                  pointHighlightStroke: "rgba(151,187,205,1)",
+                  data: temps
+              }
+          ]
+        };
+
+        res.send(toRet);
+
+        return;
+        
+      }else{
+        res.send(404, 'resource not found');
+        return;
+      }
+    });
+  }
+  else{
+    res.send(404, 'resource not found');
+    return;
+  }
+});
+
+app.get('/ebolocatemp/api/record/calendar/:id', function(req, res){
+  if(req.params.id){
+    var existing = record.findAllByCdcId(req.params.id, function(result){
+      if(result.success){
+
+        var toRet = {};
+
+        _.each(result.data, function(record){
+          if(+record.timestamp){
+            var key = record.timestamp / 1000;
+            toRet[key] = +record.temp;   
+          }
+        });
+
+        console.log(toRet);
+
+        res.send(toRet);
+
+        return;
+        
+      }else{
+        res.send(404, 'resource not found');
+        return;
+      }
+    });
+  }
+  else{
+    res.send(404, 'resource not found');
+    return;
+  }
+});
+
 app.get('/ebolocatemp/error', function(req, res){
   res.render('error', {
     title: 'Temperature Collection Error'
