@@ -1,6 +1,14 @@
 extends ./layout.jade
 block head
 	link(rel="stylesheet" href="/ebolocatemp/cal-heatmap.css")
+	style(type="text/css").
+		.q6{fill:rgb(242, 0, 19);}
+		.q5{fill:rgb(226, 100, 0);}
+		.q4{fill:rgb(201, 146, 0);}
+		.q3{fill:rgb(171, 181, 0);}
+		.q2{fill:rgb(138, 210, 84);}
+		.q1{fill:rgb(101, 234, 151);}
+		.q0{fill:rgb(237, 237, 237);}
 block body
 	div.row
 		div.col-xs-12
@@ -64,7 +72,7 @@ block scripts
 							y: 15
 						}
 					},					
-					legend: [97, 99, 101, 103]
+					legend: [99, 100, 101, 102, 103]
 				});
 			});		
 		});
