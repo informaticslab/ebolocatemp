@@ -205,22 +205,72 @@ exports.addRecord= function(record, callback) {
 // You'd typically not find this code in a real-life app, since the database would already exist.
 var populateDB = function() {
     var temprecords = [
-    {CDCID: "12345",
-     temp: "102.7F",
-     loc: "ATL",
-     timestamp: "2014-10-08T0910"},
-    {CDCID: "12345",
-     temp: "98.6F",
-     loc: "ATL",
-     timestamp: "2014-10-07T1452"},
-    {CDCID: "12345",
-     temp: "98.6F",
-     loc: "ATL",
-     timestamp: "2014-10-06T0830"},
-    {CDCID: "12345",
-     temp: "98.6F",
-     loc: "ABQ",
-     timestamp: "2014-10-05T0225"}
+    {
+        cdcId: "Ben",
+        temp: 98.6,
+        loc: "ATL",
+        timestamp: 1412793365000
+     },
+    {
+        cdcId: "Ben",
+        temp: 98.8,
+        loc: "ATL",
+        timestamp: 1412879765000
+     },
+    {
+        cdcId: "Ben",
+        temp: 98.6,
+        loc: "ATL",
+        timestamp: 1412966165000
+     },
+    {
+        cdcId: "Ben",
+        temp: 98.5,
+        loc: "ATL",
+        timestamp: 1413052565000
+     },
+     {
+        cdcId: "Ben",
+        temp: 99.4,
+        loc: "ATL",
+        timestamp: 1413138965000
+     },
+     {
+        cdcId: "Ben",
+        temp: 99.7,
+        loc: "ATL",
+        timestamp: 1413225365000
+     },
+     {
+        cdcId: "Ben",
+        temp: 100.4,
+        loc: "ATL",
+        timestamp: 1413398165000
+     },
+     {
+        cdcId: "Ben",
+        temp: 101.2,
+        loc: "ATL",
+        timestamp: 1413484565000
+     },
+     {
+        cdcId: "Ben",
+        temp: 103.0,
+        loc: "ATL",
+        timestamp: 1413570965000
+     },
+     {
+        cdcId: "Ben",
+        temp: 100.2,
+        loc: "ATL",
+        timestamp: 1413657365000
+     },
+     {
+        cdcId: "Ben",
+        temp: 99.2,
+        loc: "ATL",
+        timestamp: 1413743765000
+     }
     ]
     db.collection('temprecords', function(err, collection) {
         collection.insert(temprecords, function(err, result) {});
