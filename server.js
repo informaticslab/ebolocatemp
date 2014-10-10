@@ -104,7 +104,6 @@ app.get('/ebolocatemp/record', function(req, res){
 app.get('/ebolocatemp/record/cdcid/:id', function(req, res){
   if(req.params.id){
     var existing = record.findAllByCdcId(req.params.id, function(result){
-      console.log(result);
       if(result.success){
 
         res.render('cdcid', { 
@@ -134,7 +133,6 @@ app.get('/ebolocatemp/api/record/plot/:id', function(req, res){
 
         var labels = _.map(result.data, function(record){
           var date = new Date(record.timestamp);
-          console.log('date: ' + date);
           return date.getMonth() + "/" + date.getDate();
         })
 
@@ -188,12 +186,9 @@ app.get('/ebolocatemp/api/record/calendar/:id', function(req, res){
           }
         });
 
-        console.log(toRet);
-
         res.send(toRet);
 
         return;
-        
       }else{
         res.send(404, 'resource not found');
         return;
