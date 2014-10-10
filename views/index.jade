@@ -2,12 +2,16 @@ extends ./layout.jade
 
 block body
 	p &nbsp;
-	div.jumbotron(style="position:relative")
-		h1 Temp Monitor v0.1 (alpha)
+	div.jumbotron.visible-lg
+		div.row
+			div.col-md-10
+				h1 Temp Monitor v0.1 (alpha)
+			div.col-md-2.text-right
+				img.hidden-xs.img-responsive(src="/ebolocatemp/US-CDC-Logo.png" title="CDC Logo")
 		div.row(style="margin-bottom:15px")
-			div.col-sm-6
-				a.btn.btn-lg.btn-info(href="/ebolocatemp/record" role="button") Add new temperature reading »
-			div.col-sm-6.text-right
+			div.col-xs-6
+				a.btn.btn-lg.btn-info(href="/ebolocatemp/record" role="button") Add new temperature reading »			
+			div.col-xs-6.text-right
 				a.btn.btn-lg.btn-success(href="/ebolocatemp/data" role="button") Data and reports »
 		
 		p It is very important to monitor your health and temperature for 21 days - 
@@ -21,6 +25,25 @@ block body
 		p Tell your doctor about your recent travel and your symptoms before you go to the 
 			| office or emergency room. Advance notice will help your doctor care for you and protect other people who may be in the office.
 		p Thank you for using this tool - and helping prevent the spread of this disease.
-		
-		div(style="position: absolute; right:10px; top:10px;")
-			img.img-responsive(src="/ebolocatemp/US-CDC-Logo.png" title="CDC Logo")
+	div.hidden-lg
+		div.row
+			div.col-md-10.col-xs-8
+				h1 Temp Monitor
+			div.col-md-2.col-xs-4.text-right
+				img.img-responsive(src="/ebolocatemp/US-CDC-Logo.png" title="CDC Logo")
+		p It is very important to monitor your health and temperature for 21 days - 
+			| after leaving an area with an Ebola outbreak, especially if you were in contact
+			| with blood or body fluids, items that have come in contact with blood or body 
+			| fluids, animals or raw meat, or hospitals where Ebola patients are being treated or participated in burial rituals.
+		p Please monitor and record your temperature at least twice a day - for 21 days.  
+			| Click the blue button to begin.
+		p Seek medical care immediately if you develop fever (temperature of 101.5°F/ 38.6°C) 
+			| and any of the following symptoms: headache, muscle pain, diarrhea, vomiting, stomach pain, or unexplained bruising or bleeding.
+		p Tell your doctor about your recent travel and your symptoms before you go to the 
+			| office or emergency room. Advance notice will help your doctor care for you and protect other people who may be in the office.
+		p Thank you for using this tool - and helping prevent the spread of this disease.
+		div.row(style="margin-bottom:15px")
+			div.col-xs-6
+				a.btn.btn-info(href="/ebolocatemp/record" role="button") Record temperature »			
+			div.col-xs-6.text-right
+				a.btn.btn-success(href="/ebolocatemp/data" role="button") Data and reports »

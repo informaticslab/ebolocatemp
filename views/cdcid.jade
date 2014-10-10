@@ -6,9 +6,9 @@ block body
 		div.col-xs-12
 			h1= cdcId
 	div.row
-		div.col-md-10			
+		div.col-md-10(style="margin-bottom:15px")		
 			p Total records: #{records.length}
-			table.table.table-responsive.table-condensed
+			table.table.table-condensed
 				each record in records
 					tr
 						td= new Date(record.timestamp).toUTCString()
@@ -19,12 +19,16 @@ block body
 					a.btn.btn-default(href="/ebolocatemp") Home
 				div.col-xs-6.text-right
 					a.btn.btn-info(href="/ebolocatemp/record") Add another record
-		div.col.md-2
+		div.col-md-2(style="margin-bottom:15px")
 			div
 				div(id="cal-heatmap")
 	div.row
 		div.col-xs-12
-			canvas(id="myChart", width="600", height="400")
+			section.panel.panel-default(style="max-width:600px")
+				div.panel-heading Temperature trend
+				div.panel-body.text-center
+					div(style="padding:10px")
+						canvas(id="myChart", width="600", height="400")
 	
 block scripts
 	script(src="/ebolocatemp/Chart.min.js")
@@ -37,7 +41,7 @@ block scripts
 
 			$.get('/ebolocatemp/api/record/plot/' + "#{cdcId}", function(data){
 				console.log(data);
-				var myLineChart = new Chart(ctx).Line(data, {});
+				var myLineChart = new Chart(ctx).Line(data, { responsive: true, datasetFill: false});
 			});
 
 			$.get('/ebolocatemp/api/record/calendar/' + "#{cdcId}", function(data){

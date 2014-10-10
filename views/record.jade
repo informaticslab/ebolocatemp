@@ -3,28 +3,28 @@ block head
 	link(rel="stylesheet" href="/ebolocatemp/typeahead.css")
 	
 block body
-	h1 New Temperature Collection Form
-	section.panel
-		div.panel-body
-			form.form-horizontal(id="tempForm", role="form", method="POST")
+	p &nbsp;
+		form.form-horizontal(id="tempForm", role="form", method="POST")
+			fieldset
+				legend New Temperature Collection Form
 				div.form-group
-					label.col-lg-2.col-sm-2.control-label(for="cdcId") CDC ID
-					div.col-lg-10
+					label.col-md-2.control-label(for="cdcId") CDC ID
+					div.col-md-10
 						if(cdcId)
 							input.form-control(required, type="text", id="cdcId", name="cdcId", placeholder="your ID", value=cdcId)
 						else
 							input.form-control(required, type="text", id="cdcId", name="cdcId", placeholder="your ID")
 						p.text-muted Please enter your provided unique ID
 				div.form-group
-					label.col-lg-2.col-sm-2.control-label(for="temp") Temperature
-					div.col-lg-10
+					label.col-md-2.control-label(for="temp") Temperature
+					div.col-md-10
 						input.form-control(required, min="95", max="110", type="text", id="temp", name="temp", placeholder="98.6")
-						p Please enter your current body temperature in degrees Fahrenheit
+						p.text-muted Please enter your current body temperature in degrees Fahrenheit
 				div.form-group
-					label.col-lg-2.col-sm-2.control-label(for="loc") Location
-					div.col-lg-10
+					label.col-md-2.control-label(for="loc") Location
+					div.col-md-10
 						input.typeahead.form-control(required, type="text", id="loc", name="loc", placeholder="LAX")
-						p Please search for your current location or nearest airport
+						p.text-muted Please search for your current location or nearest airport
 					div.row
 					div.col-xs-6
 						a.btn.btn-default(href="/ebolocatemp") Cancel
