@@ -2,12 +2,14 @@ extends ./layout.jade
 
 block body
 	p &nbsp;
+	div.alert.alert-danger
+		h1 Note to users: This is a Test App / Proof of Concept
 	div.jumbotron.visible-lg
 		div.row
-			div.col-md-10
+			div.col-md-10.text-center(style="margin-bottom:20px")
 				h1 Temp Monitor v0.1 (alpha)
 			div.col-md-2.text-right
-				img.hidden-xs.img-responsive(src="/ebolocatemp/US-CDC-Logo.png" title="CDC Logo")
+				//img.hidden-xs.img-responsive(src="/ebolocatemp/US-CDC-Logo.png" title="CDC Logo")
 		div.row(style="margin-bottom:15px")
 			div.col-xs-6
 				a.btn.btn-lg.btn-info(href="/ebolocatemp/record" role="button") Add new temperature reading »			
